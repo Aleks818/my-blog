@@ -13,7 +13,7 @@
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f5f7fa;
+      background: #f8f9fa;
       min-height: 100vh;
       color: #333;
       line-height: 1.8;
@@ -25,23 +25,23 @@
       padding: 20px;
     }
 
-    /* Полностью белый фон статьи */
     .article-box {
       background: white;
-      padding: 40px 30px;
+      padding: 50px 40px;
       border-radius: 16px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
     .back-link {
       display: inline-block;
-      margin: 0 0 20px;
-      padding: 10px 20px;
+      margin-bottom: 20px;
+      padding: 12px 24px;
       background: #4a6fa5;
       color: white;
       text-decoration: none;
       border-radius: 30px;
       font-weight: 500;
+      font-size: 1.1rem;
     }
 
     .back-link:hover {
@@ -51,14 +51,14 @@
     h1 {
       color: #1a3b5d;
       font-size: 2.4rem;
-      margin: 10px 0 5px;
+      margin: 10px 0 10px;
     }
 
     p em {
       color: #666;
       font-size: 1.1rem;
       display: block;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     #content {
@@ -72,6 +72,10 @@
       font-size: 1.7rem;
     }
 
+    #content p {
+      margin: 15px 0;
+    }
+
     #content ul, #content ol {
       margin: 15px 0;
       padding-left: 30px;
@@ -79,7 +83,6 @@
 
     #content li {
       margin: 8px 0;
-      color: #333;
     }
 
     #content img {
@@ -95,16 +98,7 @@
       text-align: center;
       color: #777;
       font-size: 0.95rem;
-      margin: -15px 0 20px;
-    }
-
-    #content a {
-      color: #3498db;
-      text-decoration: none;
-    }
-
-    #content a:hover {
-      text-decoration: underline;
+      margin: -10px 0 25px;
     }
   </style>
 </head>
@@ -134,16 +128,15 @@
         const lines = text.split('\n');
         const title = lines[0]?.replace(/[#]/g, '').trim() || 'Без названия';
         const date = lines[1]?.trim() || '';
+        const content = lines.slice(2).join('\n');
 
         document.getElementById('article-title').textContent = title;
         document.getElementById('article-date').textContent = date;
-
-        const content = lines.slice(2).join('\n');
         document.getElementById('content').innerHTML = marked.parse(content);
       })
       .catch(() => {
         document.getElementById('content').innerHTML = `
-          <p>❌ Не удалось загрузить статью. Проверь имя файла: <code>articles/${article}.md</code></p>
+          <p>❌ Не удалось загрузить статью. Убедитесь, что файл <code>articles/${article}.md</code> существует.</p>
         `;
       });
   </script>
