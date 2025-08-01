@@ -19,16 +19,15 @@
       background-attachment: fixed;
       min-height: 100vh;
       color: #333;
-      text-align: center;
     }
 
-    /* Полупрозрачный слой — не слишком яркий */
+    /* Просто белый фон снизу, фон виден только сверху */
     body::before {
       content: '';
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 255, 255, 0.8); /* Не слишком бледно */
-      z-index: -1;
+      background: white; /* Полностью белый фон */
+      z-index: -2;
     }
 
     .container {
@@ -39,17 +38,16 @@
 
     header {
       text-align: center;
-      padding: 40px 20px;
-      background: rgba(255, 255, 255, 0.9);
+      padding: 50px 20px;
+      background: white;
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
+      margin: 40px auto;
     }
 
     header h1 {
       font-size: 2.8rem;
       color: #1a3b5d;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     header p {
@@ -61,7 +59,7 @@
     .controls {
       display: flex;
       justify-content: center;
-      margin: 25px 0;
+      margin: 30px 0;
     }
 
     .search-box input {
@@ -75,11 +73,6 @@
       color: #333;
     }
 
-    .search-box input:focus {
-      border-color: #3498db;
-      box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
-    }
-
     .articles {
       display: flex;
       flex-direction: column;
@@ -87,15 +80,10 @@
     }
 
     .article {
-      background: rgba(255, 255, 255, 0.95);
+      background: white;
       padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-      transition: transform 0.3s ease;
-    }
-
-    .article:hover {
-      transform: translateY(-5px);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .article h2 a {
@@ -112,11 +100,11 @@
 
     footer {
       text-align: center;
-      margin-top: 50px;
-      padding: 25px;
-      background: rgba(255, 255, 255, 0.9);
+      margin: 60px 0 30px;
+      padding: 20px;
+      background: white;
       border-radius: 12px;
-      color: #666;
+      color: #777;
       font-size: 0.95rem;
     }
   </style>
@@ -136,7 +124,7 @@
 
     <section class="articles">
       <div class="article">
-        <h2><a href="article.html?file=kak-ya-nachal">Как я начал писать каждый день</a></h2>
+        <h2><a href="article.html?file=article1">Как я начал писать каждый день</a></h2>
         <p>Читать далее →</p>
       </div>
 
