@@ -5,44 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Статья — Мой Блог</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    body {
-      background-image: url('nature-bg.jpg');
-    }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-    #content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .back-link {
-      display: inline-block;
-      margin: 20px 0;
-      color: #4a6fa5;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .back-link:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
-<body class="article-page">
-  <div class="container">
-    <a href="index.html" class="back-link">← Назад к списку статей</a>
-
+<body>
+  <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+    <a href="index.html" style="color: #3498db; text-decoration: none;">← Назад к списку</a>
     <div id="content">Загрузка...</div>
   </div>
 
-  <!-- Подключаем библиотеку Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    // Получаем название статьи из URL
     const urlParams = new URLSearchParams(window.location.search);
     const article = urlParams.get('file');
 
@@ -51,12 +22,8 @@
       throw new Error('Файл не указан');
     }
 
-    // Загружаем .md файл и преобразуем в HTML
     fetch(`articles/${article}.md`)
-      .then(response => {
-        if (!response.ok) throw new Error('404');
-        return response.text();
-      })
+      .then(response => response.text())
       .then(text => {
         document.getElementById('content').innerHTML = marked.parse(text);
       })
