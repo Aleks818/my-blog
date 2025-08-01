@@ -1,3 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Мой Блог</title>
+  <style>
+    /* === ОСНОВНЫЕ СТИЛИ === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-image: url('images/nature-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: #333;
+      text-align: center;
+      /* Полупрозрачный белый слой поверх фона — делает фон бледнее */
+      background-blend-mode: overlay;
+      background-color: rgba(255, 255, 255, 0.9); /* Бледный фон */
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* === ШАПКА === */
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      color: #2c3e50;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    header p {
+      font-style: italic;
+      color: #555;
+      font-size: 1.1rem;
+    }
+
+    /* === ПОИСК === */
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .search-box input {
+      padding: 12px 16px;
+      width: 80%;
+      max-width: 400px;
+      border: 2px solid #4a6fa5;
+      border-radius: 30px;
+      outline: none;
+      font-size: 16px;
+      color: #333;
+      transition: border 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    }
+
+    /* === СПИСОК СТАТЕЙ === */
+    .articles {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .article {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .article:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .article h2 a {
+      color: #2c3e50;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .article h2 a:hover {
+      color: #3498db;
+      text-decoration: underline;
+    }
+
+    .article p {
+      color: #444;
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    /* === ФУТЕР === */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    footer p {
+      opacity: 0.8;
+    }
+  </style>
+</head>
 <body>
   <div class="container">
     <header>
@@ -5,20 +141,34 @@
       <p>Истории, мысли и открытия</p>
     </header>
 
-    <!-- Управление -->
+    <!-- Поисковая строка -->
     <div class="controls">
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="Поиск по статьям..." />
       </div>
-      <div class="theme-toggle">
-        <button id="lightTheme">Светлая</button>
-        <button id="darkTheme">Тёмная</button>
-      </div>
     </div>
 
-    <!-- Список статей (автоматически) -->
-    <section id="articles-list" class="articles">
-      <!-- Сюда автоматически добавятся статьи -->
+    <!-- Список статей -->
+    <section class="articles">
+      <!-- Статья 1 -->
+      <div class="article">
+        <h2><a href="article.html?file=article1">Как я начал писать каждый день</a></h2>
+        <p>Читать далее →</p>
+      </div>
+
+      <!-- Статья 2 -->
+      <div class="article">
+        <h2><a href="article.html?file=utrenniy-kofe">Утренний кофе и как он меняет день</a></h2>
+        <p>Читать далее →</p>
+      </div>
+
+      <!-- Статья 3 (пример) -->
+      <div class="article">
+        <h2><a href="article.html?file=puteshestvie-v-gory">Моё путешествие в горы</a></h2>
+        <p>Читать далее →</p>
+      </div>
+
+      <!-- Добавляй новые статьи по такому же шаблону -->
     </section>
 
     <footer>
@@ -26,69 +176,18 @@
     </footer>
   </div>
 
-  <!-- Скрипт для автоматического меню -->
+  <!-- Скрипт для поиска -->
   <script>
-    // === Тема ===
-    const body = document.body;
-    if (localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark-theme');
-    }
-    document.getElementById('lightTheme')?.addEventListener('click', () => {
-      body.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-    });
-    document.getElementById('darkTheme')?.addEventListener('click', () => {
-      body.classList.add('dark-theme');
-      localStorage.setItem('theme', 'dark');
-    });
-
-    // === Поиск ===
     const searchInput = document.getElementById('searchInput');
-    let articles = [];
+    const articles = document.querySelectorAll('.article');
 
-    // Загружаем список статей
-    fetch('articles/')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const links = [...doc.querySelectorAll('a')]
-          .map(a => a.href)
-          .filter(href => href.endsWith('.html') && !href.includes('index.html'))
-          .map(href => {
-            const filename = href.split('/').pop().replace('.html', '');
-            const title = decodeURIComponent(filename)
-              .replace(/-/g, ' ')
-              .replace(/\b\w/g, l => l.toUpperCase());
-            return { href, title, filename };
-          });
-
-        const container = document.getElementById('articles-list');
-        articles = links.map(article => {
-          const div = document.createElement('div');
-          div.className = 'article';
-          div.setAttribute('data-title', article.title);
-          div.innerHTML = `
-            <h2><a href="${article.href}">${article.title}</a></h2>
-            <p>Читать далее →</p>
-          `;
-          container.appendChild(div);
-          return div;
-        });
-
-        // Поиск по названиям статей
-        searchInput?.addEventListener('input', () => {
-          const query = searchInput.value.toLowerCase();
-          articles.forEach(articleEl => {
-            const title = articleEl.getAttribute('data-title').toLowerCase();
-            articleEl.style.display = title.includes(query) ? 'flex' : 'none';
-          });
-        });
-      })
-      .catch(() => {
-        document.getElementById('articles-list').innerHTML = `
-          <p>Не удалось загрузить статьи. Убедитесь, что включён локальный сервер или сайт размещён на GitHub Pages.</p>
-        `;
+    searchInput?.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      articles.forEach(article => {
+        const title = article.querySelector('h2 a').textContent.toLowerCase();
+        article.style.display = title.includes(query) ? 'flex' : 'none';
       });
+    });
   </script>
 </body>
+</html>
