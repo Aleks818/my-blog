@@ -20,15 +20,27 @@
       min-height: 100vh;
       color: #333;
       text-align: center;
+
+      /* Усиливаем фото: ярче, насыщеннее, контрастнее */
+      filter: brightness(1.1) saturate(1.3) contrast(1.1);
     }
 
-    /* Полупрозрачный слой поверх фона — фон виден, но текст читается */
+    /* Полупрозрачный слой — фон виден, но текст читается */
     body::before {
       content: '';
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 255, 255, 0.85); /* Прозрачный белый — фон виден, но не мешает */
+      background: rgba(255, 255, 255, 0.8); /* Лёгкая подложка */
       z-index: -1;
+    }
+
+    /* Дополнительный слой — мягкое свечение (опционально) */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent 70%);
+      z-index: -2;
     }
 
     .container {
@@ -39,23 +51,23 @@
 
     header {
       padding: 60px 30px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       margin-bottom: 30px;
-      backdrop-filter: blur(4px); /* Лёгкий размытый эффект — как "стекло" */
+      backdrop-filter: blur(6px); /* Лёгкое размытие фона под шапкой */
     }
 
     header h1 {
       font-size: 3rem;
       color: #1a3b5d;
       margin-bottom: 15px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     header p {
       font-size: 1.3rem;
-      color: #555;
+      color: #444;
       font-style: italic;
     }
 
@@ -75,31 +87,32 @@
       font-size: 17px;
       color: #333;
       background: white;
+      transition: 0.3s;
     }
 
     .search-box input:focus {
       border-color: #3498db;
-      box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+      box-shadow: 0 0 12px rgba(52, 152, 219, 0.4);
     }
 
     .articles {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 28px;
     }
 
     .article {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 28px;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.97);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
       backdrop-filter: blur(4px);
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .article:hover {
       transform: translateY(-6px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
     }
 
     .article h2 a {
@@ -116,13 +129,13 @@
 
     footer {
       text-align: center;
-      margin-top: 60px;
-      padding: 25px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 14px;
+      margin-top: 70px;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
       color: #666;
       font-size: 0.95rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
