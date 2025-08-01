@@ -1,4 +1,4 @@
-fetch('/my-blog/articles/')
+fetch('/alex-blog/articles/')
   .then(response => response.text())
   .then(data => {
     const parser = new DOMParser();
@@ -29,15 +29,19 @@ fetch('/my-blog/articles/')
       articles.push(div);
     });
 
+    // 🔍 Поиск
     const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase();
-      articles.forEach(articleEl => {
-        const title = articleEl.getAttribute('data-title').toLowerCase();
-        articleEl.style.display = title.includes(query) ? 'flex' : 'none';
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        articles.forEach(articleEl => {
+          const title = articleEl.getAttribute('data-title').toLowerCase();
+          articleEl.style.display = title.includes(query) ? 'flex' : 'none';
+        });
       });
-    });
+    }
   })
-  .catch(() => {
-    document.getElementById('articles-list').innerHTML = '<p>Не удалось загрузить статьи.</p>';
+  .catch(err => {
+    console.error('Ошибка загрузки статей:', err);
+    document.getElementById('articles-list').innerHTML = '<p>❌ Не удалось загрузить статьи.</p>';
   });
