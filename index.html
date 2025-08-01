@@ -4,137 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Мой Блог</title>
-  <style>
-    body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-image: url('nature-bg.jpg');
-  background-size: cover; /* Установим размер "cover", чтобы покрыть всё окно */
-  background-position: center; /* Центрируем изображение */
-  background-attachment: fixed; /* Фон будет фиксированным при прокрутке */
-  min-height: 100vh;
-  padding: 20px;
-  margin: 0;
-  position: relative;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    .article {
-      background: white;
-      margin: 20px auto;
-      padding: 20px;
-      width: 80%;
-      max-width: 600px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      margin-top: 50px;
-      color: #777;
-      font-size: 0.9em;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🌍 Мой Блог</h1>
-      <p>Истории, мысли и открытия</p>
-    </header>
+  <header>
+    <h1>🌍 Мой Блог</h1>
+    <p>Истории, мысли и открытия</p>
+  </header>
 
-    <!-- Управление -->
-    <div class="controls">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Поиск по статьям..." />
-      </div>
-      <div class="theme-toggle">
-        <button id="lightTheme">Светлая</button>
-        <button id="darkTheme">Тёмная</button>
-      </div>
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск по статьям..." />
     </div>
-
-    <!-- Список статей (автоматически) -->
-    <section id="articles-list" class="articles">
-      <!-- Сюда автоматически добавятся статьи -->
-    </section>
-
-    <footer>
-      <p>&copy; 2025 Мой Блог. Все права защищены.</p>
-    </footer>
   </div>
 
-  <!-- Скрипт для автоматического меню -->
- <script>
-  // === Тема ===
-  const body = document.body;
-  if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark-theme');
-  }
-  document.getElementById('lightTheme')?.addEventListener('click', () => {
-    body.classList.remove('dark-theme');
-    localStorage.setItem('theme', 'light');
-  });
-  document.getElementById('darkTheme')?.addEventListener('click', () => {
-    body.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
-  });
+  <section id="articles-list" class="articles">
+    <!-- Статьи появятся здесь -->
+  </section>
 
-  // === Поиск ===
-  const searchInput = document.getElementById('searchInput');
-  let articles = [];
+  <footer>
+    <p>&copy; 2025 Мой Блог. Все права защищены.</p>
+  </footer>
 
-  // Загружаем список .md файлов
-  fetch('articles/')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
-      const links = [...doc.querySelectorAll('a')]
-        .map(a => a.href)
-        .filter(href => href.endsWith('.md'))
-        .map(href => {
-          const filename = href.split('/').pop().replace('.md', '');
-          const title = decodeURIComponent(filename)
-            .replace(/-/g, ' ')
-            .replace(/\b\w/g, l => l.toUpperCase());
-          return { href, title, filename };
-        });
-
-      const container = document.getElementById('articles-list');
-      articles = links.map(article => {
-        const div = document.createElement('div');
-        div.className = 'article';
-        div.setAttribute('data-title', article.title);
-        div.innerHTML = `
-          <h2><a href="article.html?file=${article.filename}">${article.title}</a></h2>
-          <p>Читать далее →</p>
-        `;
-        container.appendChild(div);
-        return div;
-      });
-
-      // Поиск по названиям
-      searchInput?.addEventListener('input', () => {
-        const query = searchInput.value.toLowerCase();
-        articles.forEach(articleEl => {
-          const title = articleEl.getAttribute('data-title').toLowerCase();
-          articleEl.style.display = title.includes(query) ? 'flex' : 'none';
-        });
-      });
-    })
-    .catch(() => {
-      document.getElementById('articles-list').innerHTML = `
-        <p>Не удалось загрузить статьи. Убедитесь, что сайт запущен на сервере (GitHub Pages, Replit и т.п.).</p>
-      `;
-    });
-</script>
+  <script src="js/script.js"></script>
 </body>
 </html>
