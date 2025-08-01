@@ -1,4 +1,4 @@
-fetch('articles/')
+fetch('/my-blog/articles/')
   .then(response => response.text())
   .then(data => {
     const parser = new DOMParser();
