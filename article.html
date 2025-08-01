@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Статья — Мой Блог</title>
   <style>
-    /* === Основные стили === */
     * {
       margin: 0;
       padding: 0;
@@ -14,80 +13,65 @@
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background-image: url('images/nature-bg.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background: #f5f7fa;
       min-height: 100vh;
       color: #333;
-      line-height: 1.7;
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
       padding: 20px;
     }
 
-    /* Полупрозрачный слой — делает фон бледнее */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 255, 255, 0.95); /* Почти белый, но прозрачный */
-      z-index: -1;
+    /* Полностью белый фон статьи */
+    .article-box {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
-    /* Контейнер статьи */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 30px 20px;
-    }
-
-    /* Кнопка "Назад" */
     .back-link {
       display: inline-block;
-      margin: 20px 0;
+      margin: 0 0 20px;
       padding: 10px 20px;
       background: #4a6fa5;
       color: white;
       text-decoration: none;
       border-radius: 30px;
       font-weight: 500;
-      transition: 0.3s;
     }
 
     .back-link:hover {
       background: #345e8d;
-      text-decoration: none;
     }
 
-    /* Заголовок статьи */
     h1 {
-      color: #2c3e50;
-      font-size: 2.2rem;
-      margin: 20px 0 10px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      color: #1a3b5d;
+      font-size: 2.4rem;
+      margin: 10px 0 5px;
     }
 
-    /* Дата */
     p em {
       color: #666;
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       display: block;
       margin-bottom: 25px;
     }
 
-    /* Основной текст */
     #content {
-      color: #333; /* Чёткий тёмный текст */
+      color: #333;
       font-size: 1.1rem;
     }
 
-    /* Заголовки внутри статьи */
     #content h2 {
       color: #2c3e50;
-      margin: 30px 0 15px;
-      font-size: 1.6rem;
+      margin: 35px 0 15px;
+      font-size: 1.7rem;
     }
 
-    /* Списки */
     #content ul, #content ol {
       margin: 15px 0;
       padding-left: 30px;
@@ -95,19 +79,17 @@
 
     #content li {
       margin: 8px 0;
+      color: #333;
     }
 
-    /* Изображения в статье */
     #content img {
       width: 100%;
-      max-width: 100%;
       height: auto;
       border-radius: 12px;
       margin: 25px 0;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    /* Подпись под фото */
     #content em {
       display: block;
       text-align: center;
@@ -116,7 +98,6 @@
       margin: -15px 0 20px;
     }
 
-    /* Ссылки */
     #content a {
       color: #3498db;
       text-decoration: none;
@@ -125,36 +106,20 @@
     #content a:hover {
       text-decoration: underline;
     }
-
-    /* Футер статьи */
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 12px;
-      color: #666;
-      font-size: 0.9rem;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Кнопка "Назад" -->
-    <a href="index.html" class="back-link">← Назад к статьям</a>
-
-    <!-- Заголовок статьи -->
-    <h1 id="article-title">Загрузка...</h1>
-    <p><em id="article-date"></em></p>
-
-    <!-- Содержимое статьи -->
-    <div id="content">Загрузка...</div>
+    <div class="article-box">
+      <a href="index.html" class="back-link">← Назад к статьям</a>
+      <h1 id="article-title">Загрузка...</h1>
+      <p><em id="article-date"></em></p>
+      <div id="content">Загрузка...</div>
+    </div>
   </div>
 
-  <!-- Подключаем Markdown-парсер -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    // Получаем название статьи из URL
     const urlParams = new URLSearchParams(window.location.search);
     const article = urlParams.get('file');
 
@@ -163,31 +128,22 @@
       throw new Error('Файл не указан');
     }
 
-    // Формируем путь к файлу
-    const filePath = `articles/${article}.md`;
-
-    // Загружаем и отображаем статью
-    fetch(filePath)
-      .then(response => {
-        if (!response.ok) throw new Error('404');
-        return response.text();
-      })
+    fetch(`articles/${article}.md`)
+      .then(r => r.text())
       .then(text => {
-        // Разделяем заголовок и дату
         const lines = text.split('\n');
-        const titleLine = lines[0]?.replace(/[#]/g, '').trim() || 'Без названия';
-        const dateLine = lines[1]?.trim() || '';
+        const title = lines[0]?.replace(/[#]/g, '').trim() || 'Без названия';
+        const date = lines[1]?.trim() || '';
 
-        document.getElementById('article-title').textContent = titleLine;
-        document.getElementById('article-date').textContent = dateLine;
+        document.getElementById('article-title').textContent = title;
+        document.getElementById('article-date').textContent = date;
 
-        // Остальной текст → Markdown
         const content = lines.slice(2).join('\n');
         document.getElementById('content').innerHTML = marked.parse(content);
       })
       .catch(() => {
         document.getElementById('content').innerHTML = `
-          <p>❌ Не удалось загрузить статью. Проверь, существует ли файл <code>${filePath}</code></p>
+          <p>❌ Не удалось загрузить статью. Проверь имя файла: <code>articles/${article}.md</code></p>
         `;
       });
   </script>
