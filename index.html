@@ -12,39 +12,23 @@
     }
 
     body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-image: url('images/nature-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
-  color: #333;
-  text-align: center;
-  position: relative; /* Важно для позиционирования псевдоэлементов */
-}
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-image: url('images/nature-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: #333;
+      text-align: center;
+    }
 
-/* Полупрозрачный белый слой — ещё чуть прозрачнее, чтобы не затемнять фон */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.5); /* Было 0.65 → стало 0.5 */
-  z-index: -3;
-  pointer-events: none;
-}
-
-/* Яркое фоновое изображение с фильтром */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: inherit;
-  background-size: cover;
-  background-position: center;
-  background-attachment: inherit;
-  filter: brightness(1.2) contrast(1.0) saturate(1.1); /* Очень ярко + чуть больше цвета и контраста */
-  z-index: -3;
-  pointer-events: none;
+    /* Полупрозрачный слой — фон виден, но текст читается */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: -3;
     }
 
     .container {
@@ -183,6 +167,7 @@ body::after {
   </script>
 </body>
 </html>
+
 
 
 
